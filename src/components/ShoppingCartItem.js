@@ -12,7 +12,7 @@ const Item = props => {
 
 
 			<div>
-				<h1>{props.title}</h1>
+				<h1 className="shopping-cart__title">{props.title}</h1>
 				<p>$ {props.price}</p>
 				<button onClick={event => {removeItem(props.id)}}>Remove from cart</button>
             <p>Quantity: {props.quantity}</p>

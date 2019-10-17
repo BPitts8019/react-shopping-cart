@@ -61,9 +61,16 @@ function App() {
       setCart(newCart);
    };
 
+   const emptyCart = () => {
+      if (cart.length > 0) {
+         console.log("Emptying the cart");
+         setCart([]);
+      }
+   };
+
 	return (
       <ProductContext.Provider value={{products, addItem}}>
-      <CartContext.Provider value={{cart, removeItem}}>
+      <CartContext.Provider value={{cart, removeItem, emptyCart}}>
          <div className="App">
             <Navigation />
 
