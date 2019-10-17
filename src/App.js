@@ -15,16 +15,25 @@ function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
-	const addItem = item => {
-      if (cart.includes(item)) {
-         console.log(`${item.title} is already in the cart`);
-         return;
+	const addItem = newItem => {
+      //look for item in cart
+      let newCart = [...cart];
+      let index = newCart.findIndex(item => item.id === newItem.id);
+      
+      //Did we find the item in the cart?
+      if (index === -1) {
+         //No; Add the new item with a quantity of 1
+         newCart = newCart.concat({
+            ...newItem,
+            quantity: 1
+         });
+      } else {
+         //yes; Add 1 to existing item's quantity
+         newCart[index].quantity++;
       }
 
-      setCart([
-         ...cart,
-         item
-      ]);
+      //update the cart
+      setCart(newCart);
    };
 
    const removeItem = id => {
