@@ -11,7 +11,7 @@ const Navigation = () => {
 		<div className="navigation">
 			<NavLink to="/">Products</NavLink>
 			<NavLink to="/cart">
-				Cart <span>{cart.length}</span>
+				Cart <span>{cart.reduce((acc, item) => acc + item.quantity, 0)}</span>
 			</NavLink>
 		</div>
 	);
