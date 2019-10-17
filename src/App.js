@@ -18,7 +18,7 @@ function App() {
 	const addItem = newItem => {
       //look for item in cart
       let newCart = [...cart];
-      let index = newCart.findIndex(item => item.id === newItem.id);
+      const index = newCart.findIndex(item => item.id === newItem.id);
       
       //Did we find the item in the cart?
       if (index === -1) {
@@ -37,21 +37,27 @@ function App() {
    };
 
    const removeItem = id => {
-      //find first instance of item to remove
-      const index = cart.findIndex(item => item.id === id);
+      //find the item to remove
+      let newCart = [...cart];
+      const index = newCart.findIndex(item => item.id === id);
 
       if (index === -1) {
          //we should not get here, but just in case
-         console.error(Error(`There was a problem trying to delete Item ${id}`));
+         console.error(Error(`There was a problem trying to remove Item ${id}`));
          return;
       }
 
-      //build new cart
-      const newCart = [
-         ...cart.slice(0, index),
-         ...cart.slice(index+1)
-      ];
+      //Reduce 1 from quantity or remove item from cart
+      if (newCart[index].quantity > 1) {
+         newCart[index].quantity--;
+      } else {
+         newCart = [
+            ...newCart.slice(0, index),
+            ...newCart.slice(index+1)
+         ];
+      }
       
+      //update the cart
       setCart(newCart);
    };
 
