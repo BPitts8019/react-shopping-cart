@@ -16,15 +16,39 @@ function App() {
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
+      if (cart.includes(item)) {
+         console.log(`${item.title} is already in the cart`);
+         return;
+      }
+
       setCart([
          ...cart,
          item
       ]);
    };
 
+   const removeItem = id => {
+      //find first instance of item to remove
+      const index = cart.findIndex(item => item.id === id);
+
+      if (index === -1) {
+         //we should not get here, but just in case
+         console.error(Error(`There was a problem trying to delete Item ${id}`));
+         return;
+      }
+
+      //build new cart
+      const newCart = [
+         ...cart.slice(0, index),
+         ...cart.slice(index+1)
+      ];
+      
+      setCart(newCart);
+   };
+
 	return (
       <ProductContext.Provider value={{products, addItem}}>
-      <CartContext.Provider value={cart}>
+      <CartContext.Provider value={{cart, removeItem}}>
          <div className="App">
             <Navigation />
 
